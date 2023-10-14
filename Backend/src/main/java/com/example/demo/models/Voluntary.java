@@ -1,0 +1,171 @@
+package com.example.demo.models;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.Data;
+
+/**
+ * Este modelo corresponde al de la tabla de voluntary
+ * voluntart corresponde al voluntario registrado en la plataforma
+ * @author Grupo 7 - TBD/BDA sección A-1 semestre 2-2023
+ * @version 1.0
+ */
+@Data
+@Entity
+@Table(name = "voluntary")
+public class Voluntary {
+
+     // ----------------------------------------- Atributos --------------------------------------------------
+
+    /**
+     * Columna con el rut del voluntario, el cual cuenta de 12 caracteres XXXXXXXX-X.
+     * Es único por lo que será la llave primaria
+     * No puede ser nulo
+     */
+    @Id
+    @Column(unique = true, nullable = false, length = 10)
+    private String rut;
+
+    /**
+     * Columna con el nombre del voluntario.
+     * Se espera un largo de máximo 30.
+     * No puede ser nulo.
+     */
+    @Column(nullable = false, length = 30)
+    private String nombre;
+
+    /**
+     * Columna con los apellidos del voluntario.
+     * Se espera un largo de máximo 60.
+     * No puede ser nulo.
+     */
+    @Column(nullable = false, length = 60)
+    private String apellidos;
+
+    /**
+     * Columna con la dirección de correo electrónico del voluntario.
+     * Se espera un largo de máximo 255 segun las normas establecidas.
+     * Se espera que sea única.
+     * No puede ser nula.
+     */
+    @Column(unique = true, nullable = false)
+    private String correo;
+
+    /**
+     * Columna con la contraseña del voluntario.
+     * Se espera un largo de máximo 255 caracteres.
+     * No puede ser nula.
+     */
+    @Column(nullable = false)
+    private String password;
+
+    /**
+     * Columna con el telefono del voluntario.
+     * Se espera un largo de máximo 12 contando el código de país, etc.
+     * No puede ser nulo.
+     */
+    @Column(nullable = false, length = 12)
+    private String telefono;
+
+    /**
+     * Columna con la disponibilidad del usuario del voluntario.
+     * 1 o true será disponible, 0 o false será no disponible.
+     * No puede ser nulo.
+     */
+    @Column(nullable = false)
+    private Boolean disponible;
+
+
+    // ----------------------------------------- Métodos -----------------------------------------------------
+
+    /**
+     * Método que permite obtener el rut de un voluntario
+     * @return rut del voluntario (un valor de tipo String)
+     */
+    public String getRut() {
+        return rut;
+    }
+
+    /**
+     * Método que permite obtener el nombre de un voluntario
+     * @return nombre del voluntario (un valor de tipo String)
+     */
+    public String getNombre() {
+        return nombre;
+    }
+
+    /**
+     * Método que permite actualizar el nombre de un voluntario
+     * @param nombre nuevo nombre del usuario (de tipo String)
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    
+    /**
+     * Método que permite obtener los apellidos de un voluntario
+     * @return apellidos del voluntario (un valor de tipo String)
+     */
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    /**
+     * Método que permite actualizar los apellidos de un voluntario
+     * @param apellidos apellidos del usuario (de tipo String)
+     */
+    public void setAppellidos(String appellidos) {
+        this.apellidos = appellidos;
+    }
+
+    /**
+     * Método que permite obtener la dirección de correo electrónico de un voluntario
+     * @return dirección de correo electrónico del voluntario (un valor de tipo String)
+     */
+    public String getCorreo() {
+        return correo;
+    }
+
+    /**
+     * Método que permite actualizar la dirección de correo electrónico de un voluntario
+     * @param correo dirección de correo electrónico del usuario (de tipo String)
+     */
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    /**
+     * Método que permite obtener el número de telefono de un voluntario
+     * @return número de telefono del voluntario (un valor de tipo String)
+     */
+    public String getTelefono() {
+        return telefono;
+    }
+
+    /**
+     * Método que permite actualizar el número de telefono de un voluntario
+     * @param telefono número de telefono del usuario (de tipo String)
+     */
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    /**
+     * Método que permite obtener la disponibilidad de un voluntario
+     * @return disponibilidad del voluntario (un valor de tipo booleano (disponible: 1, no disponible: 0))
+     */
+    public Boolean getDisponible() {
+        return disponible;
+    }
+
+    /**
+     * Método que permite actualizar la disponibilidad de un voluntario
+     * @param disponible disponibilidad del usuario (un valor de tipo booleano (disponible: 1, no disponible: 0))
+     */
+    public void setDisponible(Boolean disponible) {
+        this.disponible = disponible;
+    }
+
+}

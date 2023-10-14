@@ -16,9 +16,9 @@ El proyecto consiste en desarrollar un sistema para la gestión del voluntariado
 ### Tareas a realizar
 - [x] Entender el problema
 - [x] Investigar tecnologías a usar
-- [ ] Dividir el trabajo
+- [x] Dividir el trabajo
 - [ ] Realizar el diseño 
-  - [ ] Diseñar base de datos
+  - [x] Diseñar base de datos
   - [ ] Diseñar Back-end
   - [ ] Diseñar Front-End
 - [ ] Realizar construcción de base de datos, Back-End y Front-end en paralelo
