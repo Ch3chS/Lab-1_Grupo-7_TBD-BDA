@@ -55,7 +55,7 @@ public class TaskStatus {
      * Método que permite actualizar la id de un taskStatus
      * @param id_taskStatus nueva id para el taskStatus (de tipo Long)
      */
-    public void setId_user(Long id_taskStatus) {
+    public void setId_taskStatus(Long id_taskStatus) {
         this.id_taskStatus = id_taskStatus;
     }
 
