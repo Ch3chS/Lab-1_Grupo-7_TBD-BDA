@@ -34,7 +34,7 @@ public class Requirement {
      * Columna con el nombre del requisito.
      * No puede ser nulo
      */
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private String name;
 
     /**

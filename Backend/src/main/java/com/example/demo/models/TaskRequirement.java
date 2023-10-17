@@ -31,7 +31,7 @@ public class TaskRequirement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
-    private long id_voluntaryRequirement;
+    private long id_taskRequirement;
 
     /**
      * Columna con la id de la tarea asociada
