@@ -22,6 +22,9 @@ import lombok.Data;
 @Table(name = "emergency")
 public class Emergency {
     
+    // ----------------------------------------- Atributos --------------------------------------------------
+
+
     /**
      * Columna con la id de la emergencia, la cual se genera automáticamente de forma creciente.
      * Es única para cada emergencia
