@@ -52,14 +52,6 @@ public class TaskStatus {
     }
 
     /**
-     * Método que permite actualizar la id de un taskStatus
-     * @param id_taskStatus nueva id para el taskStatus (de tipo Long)
-     */
-    public void setId_taskStatus(Long id_taskStatus) {
-        this.id_taskStatus = id_taskStatus;
-    }
-
-    /**
      * Método que permite obtener el nombre de un taskStatus
      * @return nombre del taskStatus (un valor de tipo String)
      */

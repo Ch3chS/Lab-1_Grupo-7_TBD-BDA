@@ -36,8 +36,10 @@ El proyecto consiste en desarrollar un sistema para la gestión del voluntariado
     - [Repositorios](./Backend/src/main/java/com/example/demo/repositories/)
     - [Servicios](./Backend/src/main/java/com/example/demo/services/)
     - [Controladores](./Backend/src/main/java/com/example/demo/controllers/)
-
 - [Frontend](./Frontend/): Donde se almacenan todos los directorios y archivos relacionados al mismo.
+- [Database](./Database/): Donde se encuentran los archivos relacionados a la base de datos en sí.
+  - [dbCreate](./Database/dbCreate.sql): Archivo de creación de tablas
+  - [loadData](./Database/loadData.sql): Archivo de llenado de tablas
 
 ## Instalación
 
@@ -51,8 +53,8 @@ Para ejecutar correctamente todo el proyecto, además de los archivos del reposi
 
 ### Instrucciones de ejecución
 - Crear base de datos con el nombre de "demo" en pgAdmin4
-- Fijarse en que el puerto 8080 no se encuentre en uso
-  - Si se encuentra en uso ejecutar las siguientes instrucciones:
+- Abrir la Query Tool en la base de datos recien creada (demo)
+- En la Query Tool, abrir y ejecutar el archivo dbCreate de la carpeta Database (Esto creara las tablas)
 - Inicializar aplicación
 - Ingresar a <a href="http://localhost:8080/">http://localhost:8080/</a>
 

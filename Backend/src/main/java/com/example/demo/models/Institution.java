@@ -51,14 +51,6 @@ public class Institution {
     }
 
     /**
-     * Método que permite actualizar la id de una institución
-     * @param id_institution nueva id para la institución (de tipo Long)
-     */
-    public void setId_institution(Long id_institution) {
-        this.id_institution = id_institution;
-    }
-
-    /**
      * Método que permite obtener el nombre de una institución
      * @return nombre de la institución (un valor de tipo String)
      */

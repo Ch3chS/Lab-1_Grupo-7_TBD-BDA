@@ -5,8 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -37,21 +35,41 @@ public class TaskRequirement {
      * Columna con la id de la tarea asociada
      * Es una llave foránea que hace referencia a la columna id_task del modelo Task.
      */
-    @ManyToOne
-    @JoinColumn(name = "id_task", referencedColumnName = "id_task", nullable = false)
-    private Task task;
+    @Column(nullable = false)
+    private Long id_task;
 
     /**
      * Columna con la id del requisito asociado.
      * Es una llave foránea que hace referencia a la columna id_requirement del modelo Requirement.
      */
-    @ManyToOne
-    @JoinColumn(name = "id_requirement", referencedColumnName = "id_requirement", nullable = false)
-    private Requirement requirement;
+    @Column(nullable = false)
+    private Long id_requirement;
 
 
     // ----------------------------------------- Métodos -----------------------------------------------------
 
+    /**
+     * Método que permite obtener la id de la tabla intermedia
+     * @return id de la tabla intermedia (un valor de tipo Long)
+     */
+    public Long getId_taskRequirement() {
+        return id_taskRequirement;
+    }
 
+    /**
+     * Método que permite obtener la id de la tarea asociada
+     * @return id de la tarea (un valor de tipo Long)
+     */
+    public Long getId_task() {
+        return id_task;
+    }
+
+    /**
+     * Método que permite obtener la id del requerimiento asociado
+     * @return id del requerimiento (un valor de tipo Long)
+     */
+    public Long getId_Requirement() {
+        return id_requirement;
+    }
 
 }

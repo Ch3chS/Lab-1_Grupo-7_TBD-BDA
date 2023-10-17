@@ -5,8 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -37,21 +35,41 @@ public class EmergencyRequirement {
      * Columna con id de la emergencia asociada.
      * Es una llave foránea que hace referencia a la columna id_emergency del modelo Emergency.
      */
-    @ManyToOne
-    @JoinColumn(name = "id_emergency", referencedColumnName = "id_emergency", nullable = false)
-    private Emergency emergency;
+    @Column(nullable = false)
+    private Long id_emergency;
 
     /**
      * Columna con la id del requisito asociado.
      * Es una llave foránea que hace referencia a la columna id_requirement del modelo Requirement.
      */
-    @ManyToOne
-    @JoinColumn(name = "id_requirement", referencedColumnName = "id_requirement", nullable = false)
-    private Requirement requirement;
+    @Column(nullable = false)
+    private Long id_requirement;
 
 
     // ----------------------------------------- Métodos -----------------------------------------------------
 
+    /**
+     * Método que permite obtener la id de la tabla intermedia
+     * @return id de la tabla intermedia (un valor de tipo Long)
+     */
+    public Long getId_emergencyRequirement() {
+        return id_emergencyRequirement;
+    }
 
+    /**
+     * Método que permite obtener la id de la emergencia asociada
+     * @return id de la emergencia (un valor de tipo Long)
+     */
+    public Long getId_emergency() {
+        return id_emergency;
+    }
+
+    /**
+     * Método que permite obtener la id del requerimiento asociado
+     * @return id de la requerimiento (un valor de tipo Long)
+     */
+    public Long getId_Requirement() {
+        return id_requirement;
+    }
 
 }

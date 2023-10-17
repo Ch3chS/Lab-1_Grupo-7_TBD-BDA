@@ -5,8 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -50,17 +48,15 @@ public class Task {
      * Columna con la id del estado de la tarea.
      * Es una llave foránea que hace referencia a la columna id_taskStatus del modelo TaskStatus.
      */
-    @ManyToOne
-    @JoinColumn(name = "id_taskStatus", referencedColumnName = "id_taskStatus", nullable = false)
-    private TaskStatus taskStatus;
+    @Column(nullable = false)
+    private Long id_taskStatus;
 
     /**
      * Columna con la id de la emergencia a la que pertenece la tarea.
      * Es una llave foránea que hace referencia a la columna id_emergency del modelo Emergency.
      */
-    @ManyToOne
-    @JoinColumn(name = "id_emergency", referencedColumnName = "id_emergency", nullable = false)
-    private Emergency emergency;
+    @Column(nullable = false)
+    private Long id_emergency;
 
 
     // ----------------------------------------- Métodos -----------------------------------------------------
@@ -71,14 +67,6 @@ public class Task {
      */
     public Long getId_task() {
         return id_task;
-    }
-
-    /**
-     * Método que permite actualizar la id de la tarea
-     * @param id_task nueva id para la tarea (de tipo Long)
-     */
-    public void setId_task(Long id_task) {
-        this.id_task = id_task;
     }
 
     /**
@@ -111,6 +99,22 @@ public class Task {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * Método que permite obtener la id del estado de la tarea
+     * @return id del estado de la tarea (un valor de tipo Long)
+     */
+    public Long getId_taskStatus() {
+        return id_taskStatus;
+    }
+
+    /**
+     * Método que permite obtener la id de la emergencia asociada
+     * @return id de la emergencia (un valor de tipo Long)
+     */
+    public Long getId_emergency() {
+        return id_emergency;
     }
 
 }

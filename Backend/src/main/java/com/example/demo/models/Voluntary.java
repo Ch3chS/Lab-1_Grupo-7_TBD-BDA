@@ -34,7 +34,7 @@ public class Voluntary {
      * No puede ser nulo.
      */
     @Column(nullable = false, length = 30)
-    private String nombre;
+    private String name;
 
     /**
      * Columna con los apellidos del voluntario.
@@ -42,7 +42,7 @@ public class Voluntary {
      * No puede ser nulo.
      */
     @Column(nullable = false, length = 60)
-    private String apellidos;
+    private String lastnames;
 
     /**
      * Columna con la dirección de correo electrónico del voluntario.
@@ -51,7 +51,7 @@ public class Voluntary {
      * No puede ser nula.
      */
     @Column(unique = true, nullable = false)
-    private String correo;
+    private String email;
 
     /**
      * Columna con la contraseña del voluntario.
@@ -67,7 +67,7 @@ public class Voluntary {
      * No puede ser nulo.
      */
     @Column(nullable = false, length = 12)
-    private String telefono;
+    private String phone;
 
     /**
      * Columna con la disponibilidad del usuario del voluntario.
@@ -75,7 +75,7 @@ public class Voluntary {
      * No puede ser nulo.
      */
     @Column(nullable = false)
-    private Boolean disponible;
+    private Boolean avaible;
 
 
     // ----------------------------------------- Métodos -----------------------------------------------------
@@ -92,80 +92,80 @@ public class Voluntary {
      * Método que permite obtener el nombre de un voluntario
      * @return nombre del voluntario (un valor de tipo String)
      */
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
 
     /**
      * Método que permite actualizar el nombre de un voluntario
-     * @param nombre nuevo nombre del usuario (de tipo String)
+     * @param name nuevo nombre del usuario (de tipo String)
      */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
     
     /**
      * Método que permite obtener los apellidos de un voluntario
      * @return apellidos del voluntario (un valor de tipo String)
      */
-    public String getApellidos() {
-        return apellidos;
+    public String getLastnames() {
+        return lastnames;
     }
 
     /**
      * Método que permite actualizar los apellidos de un voluntario
-     * @param apellidos apellidos del usuario (de tipo String)
+     * @param lastnames apellidos del usuario (de tipo String)
      */
-    public void setAppellidos(String appellidos) {
-        this.apellidos = appellidos;
+    public void setLastnames(String lastnames) {
+        this.lastnames = lastnames;
     }
 
     /**
      * Método que permite obtener la dirección de correo electrónico de un voluntario
      * @return dirección de correo electrónico del voluntario (un valor de tipo String)
      */
-    public String getCorreo() {
-        return correo;
+    public String getEmail() {
+        return email;
     }
 
     /**
      * Método que permite actualizar la dirección de correo electrónico de un voluntario
-     * @param correo dirección de correo electrónico del usuario (de tipo String)
+     * @param email dirección de correo electrónico del usuario (de tipo String)
      */
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     /**
      * Método que permite obtener el número de telefono de un voluntario
      * @return número de telefono del voluntario (un valor de tipo String)
      */
-    public String getTelefono() {
-        return telefono;
+    public String getPhone() {
+        return phone;
     }
 
     /**
      * Método que permite actualizar el número de telefono de un voluntario
-     * @param telefono número de telefono del usuario (de tipo String)
+     * @param phone número de telefono del usuario (de tipo String)
      */
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     /**
      * Método que permite obtener la disponibilidad de un voluntario
      * @return disponibilidad del voluntario (un valor de tipo booleano (disponible: 1, no disponible: 0))
      */
-    public Boolean getDisponible() {
-        return disponible;
+    public Boolean getAvaible() {
+        return avaible;
     }
 
     /**
      * Método que permite actualizar la disponibilidad de un voluntario
-     * @param disponible disponibilidad del usuario (un valor de tipo booleano (disponible: 1, no disponible: 0))
+     * @param avaible disponibilidad del usuario (un valor de tipo booleano (disponible: 1, no disponible: 0))
      */
-    public void setDisponible(Boolean disponible) {
-        this.disponible = disponible;
+    public void setAvaible(Boolean avaible) {
+        this.avaible = avaible;
     }
 
 }

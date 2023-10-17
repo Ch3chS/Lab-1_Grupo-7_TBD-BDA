@@ -5,8 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -44,20 +42,26 @@ public class Ranking {
      * Columna con el rut del voluntario que tiene el puntaje.
      * Es una llave foránea que hace referencia a la columna rut del modelo Voluntary.
      */
-    @ManyToOne
-    @JoinColumn(name = "rut_voluntary", referencedColumnName = "rut", nullable = false)
-    private Voluntary voluntary;
+    @Column(nullable = false)
+    private String rut_voluntary;
 
     /**
      * Columna con la id de la tarea asociada.
      * Es una llave foránea que hace referencia a la columna id_task del modelo Task.
      */
-    @ManyToOne
-    @JoinColumn(name = "id_task", referencedColumnName = "id_task", nullable = false)
-    private Task task;
+    @Column(nullable = false)
+    private Long id_task;
 
 
     // ----------------------------------------- Métodos -----------------------------------------------------
+
+    /**
+     * Método que permite obtener la id del ranking
+     * @return id del ranking (un valor de tipo Long)
+     */
+    public Long getId_ranking() {
+        return id_ranking;
+    }
 
     /**
      * Método que permite obtener el puntaje del usuario para la tarea
@@ -73,6 +77,22 @@ public class Ranking {
      */
     public void setScore(int score) {
         this.score = score;
+    }
+
+    /**
+     * Método que permite obtener el rut del voluntario asociado
+     * @return rut del usuario (un valor de tipo String)
+     */
+    public String getRut_voluntary() {
+        return rut_voluntary;
+    }
+
+    /**
+     * Método que permite obtener la id de la tarea asociada
+     * @return id de la tarea (un valor de tipo Long)
+     */
+    public Long getId_task() {
+        return id_task;
     }
 
 }

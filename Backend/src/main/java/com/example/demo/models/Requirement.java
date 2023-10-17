@@ -56,14 +56,6 @@ public class Requirement {
     }
 
     /**
-     * Método que permite actualizar la id de un requerimiento
-     * @param id_requirement nueva id para el requerimiento (de tipo Long)
-     */
-    public void setId_requirement(Long id_requirement) {
-        this.id_requirement = id_requirement;
-    }
-
-    /**
      * Método que permite obtener el nombre del requerimiento
      * @return nombre del requerimiento (un valor de tipo String)
      */

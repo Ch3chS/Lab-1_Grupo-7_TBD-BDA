@@ -7,8 +7,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -59,9 +57,8 @@ public class Emergency {
      * Columna con la id de la institución a la que pertenece la emergencia.
      * Es una llave foránea que hace referencia a la columna id_institution del modelo Institution.
      */
-    @ManyToOne
-    @JoinColumn(name = "id_institution", referencedColumnName = "id_institution", nullable = false)
-    private Institution institution;
+    @Column(nullable = false)
+    private Long id_institution;
 
 
     // ----------------------------------------- Métodos -----------------------------------------------------
@@ -72,14 +69,6 @@ public class Emergency {
      */
     public Long getId_emergency() {
         return id_emergency;
-    }
-
-    /**
-     * Método que permite actualizar la id de una emergencia
-     * @param id_emergency nueva id para la emergencia (de tipo Long)
-     */
-    public void setId_emergency(Long id_emergency) {
-        this.id_emergency = id_emergency;
     }
 
     /**
@@ -135,14 +124,7 @@ public class Emergency {
      * @return id de la institución (un valor de tipo Long)
      */
     public Long getId_institution() {
-        return institution.getId_institution();
+        return id_institution;
     }
-
-    /**
-     * Método que permite actualizar la id de la institución a la que pertenece la emergencia
-     * @param id_institution nueva id para la institución (de tipo Long)
-     */
-    public void setId_institution(Long id_institution) {
-        this.institution.setId_institution(id_institution);
-    }
+    
 }
