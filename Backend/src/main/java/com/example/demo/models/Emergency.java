@@ -24,7 +24,6 @@ public class Emergency {
     
     // ----------------------------------------- Atributos --------------------------------------------------
 
-
     /**
      * Columna con la id de la emergencia, la cual se genera automáticamente de forma creciente.
      * Es única para cada emergencia
@@ -77,7 +76,7 @@ public class Emergency {
 
     /**
      * Método que permite actualizar la id de una emergencia
-     * @param id_institution nueva id para la emergencia (de tipo Long)
+     * @param id_emergency nueva id para la emergencia (de tipo Long)
      */
     public void setId_emergency(Long id_emergency) {
         this.id_emergency = id_emergency;
