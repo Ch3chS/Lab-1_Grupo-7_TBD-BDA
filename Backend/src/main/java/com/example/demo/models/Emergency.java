@@ -1,6 +1,6 @@
 package com.example.demo.models;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -43,7 +43,7 @@ public class Emergency {
      * Columna con la fecha y hora de la emergencia, la cual se genera automáticamente con la hora de creación de la misma.
      * No puede ser nula
      */
-    @Column(nullable = false, columnDefinition="TIMESTAMP")
+    @Column(nullable = false)
     private Timestamp date;
 
     /**
