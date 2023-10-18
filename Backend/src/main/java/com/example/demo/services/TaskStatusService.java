@@ -1,7 +1,6 @@
 package com.example.demo.services;
 
-import java.util.ArrayList;
-import java.util.Optional;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,24 +13,31 @@ public class TaskStatusService {
     @Autowired
     TaskStatusRepo repo;
 
-    public ArrayList<TaskStatus> getTaskStatus(){
-        return (ArrayList<TaskStatus>)repo.findAll();
-    }
-
-    public TaskStatus addTaskStatus(TaskStatus taskStatus){
+    public TaskStatus create(TaskStatus taskStatus){
         return repo.save(taskStatus);
     }
 
-    public Optional<TaskStatus> getById(Long id_taskStatus){
-        return repo.findById(id_taskStatus);
+    public List<TaskStatus> getAll(){
+        return repo.findAll();
     }
 
-    public boolean deleteTaskStatus(Long id_taskStatus) {
-        try{
-            repo.deleteById(id_taskStatus);
-            return true;
-        }catch(Exception err){
-            return false;
+    public TaskStatus getById(Long id){
+        return repo.findById(id).orElse(null);
+    }
+
+    public TaskStatus update(Long id, TaskStatus taskStatusDetails) {
+        TaskStatus taskStatus = repo.findById(id).orElse(null);
+        if(taskStatus != null) {
+            taskStatus.setName(taskStatusDetails.getName());
+            return repo.save(taskStatus);
+        }
+        return null;
+    }
+
+    public void delete(Long id) {
+        TaskStatus taskStatus = repo.findById(id).orElse(null);
+        if(taskStatus != null){
+            repo.delete(taskStatus);
         }
     }
 
