@@ -39,23 +39,23 @@ public class VoluntaryService {
     }
 
     /**
-     * Obtener voluntario por id
+     * Obtener voluntario por rut
      * Corresponde al Read del CRUD
-     * @param id id de la entidad
+     * @param rut rut del voluntario
      * @return entidad con la id respectiva (o null en caso de no encontrarse)
      */
-    public Voluntary getById(Long id) {
-        return repo.findById(id).orElse(null);
+    public Voluntary getById(String rut) {
+        return repo.findById(rut).orElse(null);
     }
 
     /**
-     * Actualizar voluntario por id
+     * Actualizar voluntario por rut
      * Corresponde al Update del CRUD
-     * @param id id de la entidad
+     * @param rut rut del voluntario
      * @return entidad actualizada (o null en caso de no encontrarse)
      */
-    public Voluntary update(Long id, Voluntary voluntaryDetails) {
-        Voluntary voluntary = repo.findById(id).orElse(null);
+    public Voluntary update(String rut, Voluntary voluntaryDetails) {
+        Voluntary voluntary = repo.findById(rut).orElse(null);
         if (voluntary != null) {
             voluntary.setName(voluntaryDetails.getName());
             voluntary.setLastnames(voluntaryDetails.getLastnames());
@@ -69,12 +69,12 @@ public class VoluntaryService {
     }
 
     /**
-     * Eliminar voluntario por id
+     * Eliminar voluntario por rut
      * Corresponde al Delete del CRUD
-     * @param id id de la entidad
+     * @param rut rut del voluntario
      */
-    public void delete(Long id) {
-        Voluntary voluntary = repo.findById(id).orElse(null);
+    public void delete(String rut) {
+        Voluntary voluntary = repo.findById(rut).orElse(null);
         if (voluntary != null) {
             repo.delete(voluntary);
         }

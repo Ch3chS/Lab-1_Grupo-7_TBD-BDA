@@ -6,6 +6,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import com.example.demo.models.Voluntary;
 
 @RepositoryRestResource
-public interface VoluntaryRepo extends JpaRepository<Voluntary, Long> {
+public interface VoluntaryRepo extends JpaRepository<Voluntary, String> {
     
 }

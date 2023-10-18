@@ -43,9 +43,9 @@ public class VoluntaryController {
      * @param id El ID del voluntario a obtener.
      * @return El voluntario con el ID especificado.
      */
-    @GetMapping("/{id}")
-    public Voluntary getVoluntaryById(@PathVariable Long id) {
-        return service.getById(id);
+    @GetMapping("/{rut}")
+    public Voluntary getVoluntaryById(@PathVariable String rut) {
+        return service.getById(rut);
     }
 
     /**
@@ -54,17 +54,17 @@ public class VoluntaryController {
      * @param voluntary El voluntario actualizado.
      * @return El voluntario actualizado.
      */
-    @PutMapping("/{id}")
-    public Voluntary updateVoluntary(@PathVariable Long id, @RequestBody Voluntary voluntary) {
-        return service.update(id, voluntary);
+    @PutMapping("/{rut}")
+    public Voluntary updateVoluntary(@PathVariable String rut, @RequestBody Voluntary voluntary) {
+        return service.update(rut, voluntary);
     }
 
     /**
      * Elimina un voluntario por su ID.
      * @param id El ID del voluntario a eliminar.
      */
-    @DeleteMapping("/{id}")
-    public void deleteVoluntary(@PathVariable Long id) {
-        service.delete(id);
+    @DeleteMapping("/{rut}")
+    public void deleteVoluntary(@PathVariable String rut) {
+        service.delete(rut);
     }
 }
