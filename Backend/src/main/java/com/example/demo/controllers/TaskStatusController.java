@@ -1,50 +1,70 @@
 package com.example.demo.controllers;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.example.demo.models.TaskStatus;
 import com.example.demo.services.TaskStatusService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+/**
+ * Controlador que mapea los servicios referentes al modelo TaskStatus
+ * @author Grupo 7 - TBD/BDA sección A-1 semestre 2-2023
+ * @version 1.0
+ */
 @RestController
-@RequestMapping("/taskStatus")
+@RequestMapping("/taskStatuses")
 public class TaskStatusController {
 
     @Autowired
-    TaskStatusService service;
+    private TaskStatusService service;
 
-    @PostMapping()
-    public void createTaskStatus(@RequestBody TaskStatus taskStatus){
-        service.create(taskStatus);
+    /**
+     * Crea un nuevo estado de tarea.
+     * @param taskStatus El estado de tarea a crear.
+     * @return El estado de tarea creado.
+     */
+    @PostMapping
+    public TaskStatus createTaskStatus(@RequestBody TaskStatus taskStatus) {
+        return service.create(taskStatus);
     }
 
-    @GetMapping()
-    public List<TaskStatus> geTaskStatus(){
+    /**
+     * Obtiene todos los estados de tareas.
+     * @return Una lista de todos los estados de tareas.
+     */
+    @GetMapping
+    public List<TaskStatus> getAllTaskStatuses() {
         return service.getAll();
     }
 
-    @GetMapping(path = "/{id}")
-    public TaskStatus getTaskStatusById(@PathVariable("id") Long id_taskStatus){
-        return this.service.getById(id_taskStatus);
+    /**
+     * Obtiene un estado de tarea por su ID.
+     * @param id El ID del estado de tarea a obtener.
+     * @return El estado de tarea con el ID especificado.
+     */
+    @GetMapping("/{id}")
+    public TaskStatus getTaskStatusById(@PathVariable Long id) {
+        return service.getById(id);
     }
 
+    /**
+     * Actualiza un estado de tarea existente.
+     * @param id El ID del estado de tarea a actualizar.
+     * @param taskStatus El estado de tarea actualizado.
+     * @return El estado de tarea actualizado.
+     */
     @PutMapping("/{id}")
     public TaskStatus updateTaskStatus(@PathVariable Long id, @RequestBody TaskStatus taskStatus) {
         return service.update(id, taskStatus);
     }
 
-    @DeleteMapping(path = "/{id}")
-    public void deleteTaskStatus(@PathVariable("id_taskStatus") Long id_taskStatus) {
-        service.delete(id_taskStatus);
-        
+    /**
+     * Elimina un estado de tarea por su ID.
+     * @param id El ID del estado de tarea a eliminar.
+     */
+    @DeleteMapping("/{id}")
+    public void deleteTaskStatus(@PathVariable Long id) {
+        service.delete(id);
     }
 }

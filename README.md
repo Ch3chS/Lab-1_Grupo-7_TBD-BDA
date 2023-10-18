@@ -19,7 +19,7 @@ El proyecto consiste en desarrollar un sistema para la gestión del voluntariado
 - [x] Dividir el trabajo
 - [ ] Realizar el diseño 
   - [x] Diseñar base de datos
-  - [ ] Diseñar Back-end
+  - [x] Diseñar Back-end
   - [ ] Diseñar Front-End
 - [ ] Realizar construcción de base de datos, Back-End y Front-end en paralelo
 - [ ] Unir Back-end y Front-end

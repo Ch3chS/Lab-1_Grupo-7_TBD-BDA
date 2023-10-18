@@ -5,72 +5,73 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.models.TaskStatus;
-import com.example.demo.repositories.TaskStatusRepo;
+import com.example.demo.models.Ranking;
+import com.example.demo.repositories.RankingRepo;
 
 /**
- * Lógica detras del modelo TaskStatus, para los servicios de la aplicación con respecto al mismo.
+ * Lógica detras del modelo Ranking, para los servicios de la aplicación con respecto al mismo.
  * Corresponde al CRUD del modelo, por lo que tendrá creación, lectura, actualización y eliminación.
  * @author Grupo 7 - TBD/BDA sección A-1 semestre 2-2023
  * @version 1.0
  */
 @Service
-public class TaskStatusService {
+public class RankingService {
+  
     @Autowired
-    TaskStatusRepo repo;
+    private RankingRepo repo;
 
     /**
-     * Creación de un taskStatus
+     * Creación de un ranking
      * Corresponde al Create del CRUD
-     * @param taskStatus entidad a almacenar en la base de datos
+     * @param ranking entidad a almacenar en la base de datos
      * @return entidad almacenada
      */
-    public TaskStatus create(TaskStatus taskStatus){
-        return repo.save(taskStatus);
+    public Ranking create(Ranking ranking) {
+        return repo.save(ranking);
     }
 
     /**
-     * Obtener todas los taskStatus
+     * Obtener todas los rankings
      * @return todas las entidades de la tabla
      */
-    public List<TaskStatus> getAll(){
+    public List<Ranking> getAll() {
         return repo.findAll();
     }
 
     /**
-     * Obtener taskStatus por id
+     * Obtener Ranking por id
      * Corresponde al Read del CRUD
      * @param id id de la entidad
      * @return entidad con la id respectiva (o null en caso de no encontrarse)
      */
-    public TaskStatus getById(Long id){
+    public Ranking getById(Long id) {
         return repo.findById(id).orElse(null);
     }
 
     /**
-     * Actualizar taskStatus por id
+     * Actualizar Ranking por id
      * Corresponde al Update del CRUD
      * @param id id de la entidad
      * @return entidad actualizada (o null en caso de no encontrarse)
      */
-    public TaskStatus update(Long id, TaskStatus taskStatusDetails) {
-        TaskStatus taskStatus = repo.findById(id).orElse(null);
-        if(taskStatus != null) {
-            taskStatus.setName(taskStatusDetails.getName());
-            return repo.save(taskStatus);
+    public Ranking update(Long id, Ranking rankingDetails) {
+        Ranking ranking = repo.findById(id).orElse(null);
+        if (ranking != null) {
+            ranking.setScore(rankingDetails.getScore());
+            return repo.save(ranking);
         }
         return null;
     }
 
     /**
-     * Eliminar taskStatus por id
+     * Eliminar Ranking por id
      * Corresponde al Delete del CRUD
      * @param id id de la entidad
      */
     public void delete(Long id) {
-        TaskStatus taskStatus = repo.findById(id).orElse(null);
-        if(taskStatus != null){
-            repo.delete(taskStatus);
+        Ranking ranking = repo.findById(id).orElse(null);
+        if (ranking != null) {
+            repo.delete(ranking);
         }
     }
 

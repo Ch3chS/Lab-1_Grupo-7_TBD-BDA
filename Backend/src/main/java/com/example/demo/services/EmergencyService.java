@@ -38,7 +38,7 @@ public class EmergencyService {
     }
 
     /**
-     * Obtener una emergencia por id
+     * Obtener emergencia por id
      * Corresponde al Read del CRUD
      * @param id id de la entidad
      * @return entidad con la id respectiva (o null en caso de no encontrarse)
@@ -48,7 +48,7 @@ public class EmergencyService {
     }
 
     /**
-     * Actualizar una emergencia por id
+     * Actualizar emergencia por id
      * Corresponde al Update del CRUD
      * @param id id de la entidad
      * @return entidad actualizada (o null en caso de no encontrarse)
@@ -66,7 +66,7 @@ public class EmergencyService {
     }
 
     /**
-     * Eliminar una emergencia por id
+     * Eliminar emergencia por id
      * Corresponde al Delete del CRUD
      * @param id id de la entidad
      */
@@ -76,4 +76,5 @@ public class EmergencyService {
             repo.delete(emergency);
         }
     }
+    
 }

@@ -19,26 +19,50 @@ public class EmergencyController {
     @Autowired
     private EmergencyService service;
 
+    /**
+     * Crea una nueva emergencia.
+     * @param emergency La emergencia a crear.
+     * @return La emergencia creada.
+     */
     @PostMapping
     public Emergency createEmergency(@RequestBody Emergency emergency) {
         return service.create(emergency);
     }
 
+    /**
+     * Obtiene todas las emergencias.
+     * @return Una lista de todas las emergencias.
+     */
     @GetMapping
     public List<Emergency> getAllEmergencies() {
         return service.getAll();
     }
 
+    /**
+     * Obtiene una emergencia por su ID.
+     * @param id El ID de la emergencia a obtener.
+     * @return La emergencia con el ID especificado.
+     */
     @GetMapping("/{id}")
     public Emergency getEmergencyById(@PathVariable Long id) {
         return service.getById(id);
     }
 
+    /**
+     * Actualiza una emergencia existente.
+     * @param id El ID de la emergencia a actualizar.
+     * @param emergency La emergencia actualizada.
+     * @return La emergencia actualizada.
+     */
     @PutMapping("/{id}")
     public Emergency updateEmergency(@PathVariable Long id, @RequestBody Emergency emergency) {
         return service.update(id, emergency);
     }
 
+    /**
+     * Elimina una emergencia por su ID.
+     * @param id El ID de la emergencia a eliminar.
+     */
     @DeleteMapping("/{id}")
     public void deleteEmergency(@PathVariable Long id) {
         service.delete(id);
