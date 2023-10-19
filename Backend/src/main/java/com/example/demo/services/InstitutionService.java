@@ -20,6 +20,9 @@ public class InstitutionService {
     @Autowired
     private InstitutionRepo repo;
 
+    @Autowired
+    private EmergencyService emergencyService;
+
     /**
      * Creación de una institución
      * Corresponde al Create del CRUD
@@ -70,6 +73,11 @@ public class InstitutionService {
     public void delete(Long id) {
         Institution institution = repo.findById(id).orElse(null);
         if (institution != null) {
+
+            // Eliminar todas las entidades relacionadas en la clase Emergency
+            emergencyService.deleteByIdInstitution(id);
+
+            // Finalmente, eliminar la institución
             repo.delete(institution);
         }
     }

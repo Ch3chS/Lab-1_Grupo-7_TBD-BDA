@@ -20,6 +20,12 @@ public class VoluntaryService {
     @Autowired
     private VoluntaryRepo repo;
 
+    @Autowired
+    private RankingService rankingService;
+
+    @Autowired
+    private VoluntaryRequirementService voluntaryRequirementService;
+
     /**
      * Creación de una voluntary
      * Corresponde al Create del CRUD
@@ -76,6 +82,13 @@ public class VoluntaryService {
     public void delete(String rut) {
         Voluntary voluntary = repo.findById(rut).orElse(null);
         if (voluntary != null) {
+            // Eliminar todas las entidades relacionadas en la clase Ranking
+            rankingService.deleteByRutVoluntary(rut);
+
+            // Eliminar todas las entidades relacionadas en la clase VoluntaryRequirement
+            voluntaryRequirementService.deleteByRutVoluntary(rut);
+
+            // Finalmente, eliminar el voluntario
             repo.delete(voluntary);
         }
     }

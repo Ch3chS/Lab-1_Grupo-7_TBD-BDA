@@ -64,4 +64,31 @@ public class TaskRequirementService {
         }
     }
 
+
+
+// ---------------------------------- Métodos para eliminación de cascada ----------------------------------
+
+/**
+ * Eliminar por id_task
+ * @param id_task id de la tarea
+ */
+public void deleteByIdTask(Long id_task) {
+    List<TaskRequirement> taskRequirements = repo.findByIdTask(id_task);
+    if (taskRequirements != null) {
+        repo.deleteAll(taskRequirements);
+    }
+}
+
+/**
+ * Eliminar por id_requirement
+ * @param id_requirement id del requerimiento
+ */
+public void deleteByIdRequirement(Long id_requirement) {
+    List<TaskRequirement> taskRequirements = repo.findByIdRequirement(id_requirement);
+    if (taskRequirements != null) {
+        repo.deleteAll(taskRequirements);
+    }
+}
+
+
 }

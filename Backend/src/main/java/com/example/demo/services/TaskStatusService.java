@@ -19,6 +19,9 @@ public class TaskStatusService {
     @Autowired
     TaskStatusRepo repo;
 
+    @Autowired
+    TaskService taskService;
+
     /**
      * Creación de un taskStatus
      * Corresponde al Create del CRUD
@@ -70,6 +73,11 @@ public class TaskStatusService {
     public void delete(Long id) {
         TaskStatus taskStatus = repo.findById(id).orElse(null);
         if(taskStatus != null){
+
+            // Eliminar todas las entidades relacionadas en la clase Ranking
+            taskService.deleteByIdTaskStatus(id);
+
+            // Finalmente, eliminar el taskStatus
             repo.delete(taskStatus);
         }
     }

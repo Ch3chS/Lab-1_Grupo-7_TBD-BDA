@@ -20,6 +20,12 @@ public class TaskService {
     @Autowired
     private TaskRepo repo;
 
+    @Autowired
+    private RankingService rankingService;
+
+    @Autowired
+    private TaskRequirementService taskRequirementService;
+
     /**
      * Creación de una tarea
      * Corresponde al Create del CRUD
@@ -72,8 +78,47 @@ public class TaskService {
     public void delete(Long id) {
         Task task = repo.findById(id).orElse(null);
         if (task != null) {
+
+            // Eliminar todas las entidades relacionadas en la clase Ranking
+            rankingService.deleteByIdTask(id);
+
+            // Eliminar todas las entidades relacionadas en la clase taskRequirement
+            taskRequirementService.deleteByIdTask(id);
+
+            // Finalmente, eliminar la tarea
             repo.delete(task);
         }
     }
+
+
+
+    // ---------------------------------- Métodos para eliminación de cascada ----------------------------------
+
+    /**
+     * Eliminar por id_taskStatus
+     * @param id_taskStatus id del estado de la tarea
+     */
+    public void deleteByIdTaskStatus(Long id_taskStatus) {
+        List<Task> tasks = repo.findByIdTaskStatus(id_taskStatus);
+        if (tasks != null) {
+            for (Task task : tasks) {
+                delete(task.getId_task());
+            }
+        }
+    }
+
+    /**
+     * Eliminar por id_emergency
+     * @param id_emergency id de la emergencia
+     */
+    public void deleteByIdEmergency(Long id_emergency) {
+        List<Task> tasks = repo.findByIdEmergency(id_emergency);
+        if (tasks != null) {
+            for (Task task : tasks) {
+                delete(task.getId_task());
+            }
+        }
+    }
+
     
 }

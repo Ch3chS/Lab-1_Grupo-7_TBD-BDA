@@ -19,6 +19,12 @@ public class EmergencyService {
     @Autowired
     private EmergencyRepo repo;
 
+    @Autowired
+    private TaskService taskService;
+
+    @Autowired
+    private EmergencyRequirementService emergencyRequirementService;
+
     /**
      * Creación de una emergencia
      * Corresponde al Create del CRUD
@@ -73,8 +79,33 @@ public class EmergencyService {
     public void delete(Long id) {
         Emergency emergency = repo.findById(id).orElse(null);
         if (emergency != null) {
+
+            // Eliminar todas las entidades relacionadas en la clase Task
+            taskService.deleteByIdEmergency(id);
+
+            // Eliminar todas las entidades relacionadas en la clase EmergencyRequirement
+            emergencyRequirementService.deleteByIdEmergency(id);
+
+            // Finalmente, eliminar la emergencia
             repo.delete(emergency);
         }
     }
+
+
+    // ---------------------------------- Métodos para eliminación de cascada ----------------------------------
+
+    /**
+     * Eliminar por id_institution
+     * @param id_institution id de la institución
+     */
+    public void deleteByIdInstitution(Long id_institution) {
+        List<Emergency> emergencies = repo.findByIdInstitution(id_institution);
+        if (emergencies != null) {
+            for (Emergency emergency : emergencies) {
+                delete(emergency.getId_emergency());
+            }
+        }
+    }
+
     
 }

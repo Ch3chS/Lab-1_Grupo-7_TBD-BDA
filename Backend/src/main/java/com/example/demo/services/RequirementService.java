@@ -20,6 +20,15 @@ public class RequirementService {
     @Autowired
     private RequirementRepo repo;
 
+    @Autowired
+    private VoluntaryRequirementService voluntaryRequirementService;
+
+    @Autowired
+    private EmergencyRequirementService emergencyRequirementService;
+
+    @Autowired
+    private TaskRequirementService taskRequirementService;
+
     /**
      * Creación de un requisito
      * Corresponde al Create del CRUD
@@ -72,6 +81,16 @@ public class RequirementService {
     public void delete(Long id) {
         Requirement requirement = repo.findById(id).orElse(null);
         if (requirement != null) {
+            // Eliminar todas las entidades relacionadas en la clase VoluntaryRequirement
+            voluntaryRequirementService.deleteByIdRequirement(id);
+
+            // Eliminar todas las entidades relacionadas en la clase EmergencyRequirement
+            emergencyRequirementService.deleteByIdRequirement(id);
+
+            // Eliminar todas las entidades relacionadas en la clase TaskRequirement
+            taskRequirementService.deleteByIdRequirement(id);
+
+            // Finalmente, eliminar el requerimiento
             repo.delete(requirement);
         }
     }

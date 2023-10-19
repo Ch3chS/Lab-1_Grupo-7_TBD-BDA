@@ -63,5 +63,33 @@ public class EmergencyRequirementService {
             repo.delete(emergencyRequirement);
         }
     }
+
+
+
+
+    // ---------------------------------- Métodos para eliminación de cascada ----------------------------------
+
+/**
+ * Eliminar por id_emergency
+ * @param id_emergency id de la emergencia
+ */
+public void deleteByIdEmergency(Long id_emergency) {
+    List<EmergencyRequirement> emergencyRequirements = repo.findByIdEmergency(id_emergency);
+    if (emergencyRequirements != null) {
+        repo.deleteAll(emergencyRequirements);
+    }
+}
+
+/**
+ * Eliminar por id_requirement
+ * @param id_requirement id del requerimiento
+ */
+public void deleteByIdRequirement(Long id_requirement) {
+    List<EmergencyRequirement> emergencyRequirements = repo.findByIdRequirement(id_requirement);
+    if (emergencyRequirements != null) {
+        repo.deleteAll(emergencyRequirements);
+    }
+}
+
     
 }

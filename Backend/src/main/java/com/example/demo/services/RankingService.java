@@ -75,4 +75,32 @@ public class RankingService {
         }
     }
 
+
+
+
+    // ---------------------------------- Métodos para eliminación de cascada ----------------------------------
+
+    /**
+     * Eliminar por id_task
+     * @param id_task id de la tarea
+     */
+    public void deleteByIdTask(Long id_task) {
+        List<Ranking> rankings = repo.findById_Task(id_task);
+        if (rankings != null) {
+            repo.deleteAll(rankings);
+        }
+    }
+
+    /**
+     * Eliminar por rut_voluntary
+     * @param rut_voluntary rut del voluntario
+     */
+    public void deleteByRutVoluntary(String rut_voluntary) {
+        List<Ranking> ranking = repo.findByRut_Voluntary(rut_voluntary);
+        if (ranking != null) {
+            repo.deleteAll(ranking);
+        }
+    }
+
+
 }

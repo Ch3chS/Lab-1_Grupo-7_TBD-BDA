@@ -64,4 +64,30 @@ public class VoluntaryRequirementService {
         }
     }
 
+
+
+    // ---------------------------------- Métodos para eliminación de cascada ----------------------------------
+
+    /**
+     * Eliminar por id_requirement
+     * @param id_requirement id del requerimiento
+     */
+    public void deleteByIdRequirement(Long id_requirement) {
+        List<VoluntaryRequirement> voluntaryRequirements = repo.findByIdRequirement(id_requirement);
+        if (voluntaryRequirements != null) {
+            repo.deleteAll(voluntaryRequirements);
+        }
+    }
+
+    /**
+     * Eliminar por rut_voluntary
+     * @param rut_voluntary rut del voluntario
+     */
+    public void deleteByRutVoluntary(String rut_voluntary) {
+        List<VoluntaryRequirement> voluntaryRequirement = repo.findByRutVoluntary(rut_voluntary);
+        if (voluntaryRequirement != null) {
+            repo.deleteAll(voluntaryRequirement);
+        }
+    }
+
 }
