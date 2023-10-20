@@ -3,6 +3,7 @@ package com.example.demo.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.models.Voluntary;
@@ -90,6 +91,42 @@ public class VoluntaryService {
 
             // Finalmente, eliminar el voluntario
             repo.delete(voluntary);
+        }
+    }
+
+    // -------------------------------- Registro e inicio de sesión --------------------------------
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    /**
+     * Registra un nuevo voluntario.
+     * @param voluntary El voluntario a registrar.
+     * @return El voluntario registrado.
+     */
+    public Voluntary register(Voluntary voluntary) {
+        // Encripta la contraseña del voluntario antes de guardarla en la base de datos
+        voluntary.setPassword(bCryptPasswordEncoder.encode(voluntary.getPassword()));
+        // Llama al método create para guardar el voluntario en la base de datos
+        return create(voluntary);
+    }
+
+    /**
+     * Inicia sesión con un voluntario existente.
+     * @param rut El RUT del voluntario.
+     * @param password La contraseña del voluntario.
+     * @return El voluntario si las credenciales son correctas, null en caso contrario.
+     */
+    public Voluntary login(String rut, String password) {
+        // Busca al voluntario por su RUT
+        Voluntary voluntary = repo.findByRut(rut);
+        // Comprueba si el voluntario existe y si la contraseña proporcionada coincide con la contraseña encriptada guardada en la base de datos
+        if (voluntary != null && bCryptPasswordEncoder.matches(password, voluntary.getPassword())) {
+            // Si las credenciales son correctas, devuelve el voluntario
+            return voluntary;
+        } else {
+            // Si las credenciales son incorrectas, devuelve null
+            return null;
         }
     }
 

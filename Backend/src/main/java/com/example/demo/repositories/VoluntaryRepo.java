@@ -7,5 +7,5 @@ import com.example.demo.models.Voluntary;
 
 @RepositoryRestResource
 public interface VoluntaryRepo extends JpaRepository<Voluntary, String> {
-    
+    Voluntary findByRut(String rut);
 }

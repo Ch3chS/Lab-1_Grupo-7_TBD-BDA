@@ -17,7 +17,7 @@ import lombok.Data;
 @Table(name = "voluntary")
 public class Voluntary {
 
-     // ----------------------------------------- Atributos --------------------------------------------------
+    // ----------------------------------------- Atributos --------------------------------------------------
 
     /**
      * Columna con el rut del voluntario, el cual cuenta de 12 caracteres XXXXXXXX-X.
