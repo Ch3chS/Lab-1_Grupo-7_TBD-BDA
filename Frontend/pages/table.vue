@@ -22,7 +22,7 @@
         <thead>
           <tr>
             <th>Tarea</th>
-            <th>Voluntario</th> <!-- Nueva columna para el voluntario -->
+            <th>Voluntario con menor puntaje</th>
           </tr>
         </thead>
         <tbody>
@@ -42,13 +42,12 @@
 export default {
   data() {
     return {
-      // Tus otros datos
       startDate: null,
       endDate: null,
       emergencies: [],
       selectedEmergency: null,
       tasks: {},
-      volunteers: {} // Nueva propiedad para almacenar los voluntarios
+      volunteers: {}
     }
   },
   methods: {
@@ -64,7 +63,7 @@ export default {
           console.error(error)
         }
       } else {
-        // ('Por favor, selecciona las fechas de inicio y fin.')
+        // ('Por favor, selecciona las fechas de inicio y fin.') // Era muy molesto asi que lo quite
       }
     },
     async getTasks(id_emergency) {
@@ -96,7 +95,6 @@ export default {
 
 
   },
-  // Tus otros ciclos de vida del componente
 }
 </script>
 
