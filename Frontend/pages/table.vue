@@ -1,87 +1,108 @@
 <template>
-    <div>
+  <div>
+    <div style="display: flex; justify-content: center; margin-bottom: 20px;">
+      <input type="date" v-model="startDate" @change="getEmergencies">
+      <input type="date" v-model="endDate" @change="getEmergencies">
+    </div>
+    <div style="display: flex;">
       <table>
         <thead>
           <tr>
             <th>Emergencia</th>
-            <th>Tarea</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="emergency in emergencies" :key="emergency.id_emergency">
-            <td @click="selectedEmergency = emergency.id_emergency">{{ emergency.description }}</td>
-            <td v-if="selectedEmergency === emergency.id_emergency">
-              <table>
-                <tr v-for="task in tasks[selectedEmergency]" :key="task.id">
-                  <td>{{ task.name }}</td>
-                </tr>
-              </table>
-            </td>
+            <td @click="getTasks(emergency.id_emergency)">{{ emergency.description }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table v-if="selectedEmergency">
+        <thead>
+          <tr>
+            <th>Tarea</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="task in tasks[selectedEmergency]" :key="task.id">
+            <td>{{ task.name }}</td>
           </tr>
         </tbody>
       </table>
     </div>
-  </template>
-  
-  <script>
-  import axios from 'axios'
-  
-  export default {
-    data() {
-      return {
-        emergencies: [],
-        tasks: {},
-        selectedEmergency: null
-      }
-    },
-    methods: {
-      async getEmergencies() {
-        try {
-          const response = await axios.get('/api/emergencies')
-          this.emergencies = response.data
-          for (const emergency of this.emergencies) {
-            await this.getTasks(emergency.id_emergency)
-          }
-        } catch (error) {
-          console.error(error)
-        }
-      },
-      async getTasks(id_emergency) {
-        try {
-          const response = await axios.get(`/api/tasks/byEmergency/${id_emergency}`)
-          this.$set(this.tasks, id_emergency, response.data)
-        } catch (error) {
-          console.error(error)
-        }
-      }
-    },
-    mounted() {
-      this.getEmergencies()
+  </div>
+</template>
+
+<script>
+
+export default {
+  data() {
+    return {
+      // Tus otros datos
+      startDate: null,
+      endDate: null,
+      emergencies: [],
+      selectedEmergency: null,
+      tasks: {}
     }
-  }
-  </script>
-  
-  <style scoped>
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-  }
-  
-  tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-  
-  th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #4CAF50;
-    color: white;
-  }
-  </style>
-  
+  },
+  methods: {
+    async getEmergencies() {
+      if (this.startDate && this.endDate) {
+        const start = new Date(this.startDate + 'T00:00:00').toISOString();
+        const end = new Date(this.endDate + 'T23:59:59').toISOString();
+        try {
+          const response = await this.$axios.$post('/api/emergencies/byDate', { startDate: start, endDate: end });
+          console.log(response); // Imprime la respuesta en la consola
+          this.emergencies = response; // Asigna los datos recibidos a una propiedad reactiva
+        } catch (error) {
+          console.error(error)
+        }
+      } else {
+        // ('Por favor, selecciona las fechas de inicio y fin.')
+      }
+    },
+    async getTasks(id_emergency) {
+      try {
+        const response = await this.$axios.$get('/api/tasks/byEmergency/' + id_emergency);
+        console.log(response); // Imprime la respuesta en la consola
+        this.tasks[id_emergency] = response; // Asigna los datos recibidos a una propiedad reactiva
+        this.selectedEmergency = id_emergency; // Actualiza la emergencia seleccionada después de que las tareas se hayan cargado
+        this.$nextTick(() => {
+          // Aquí puedes acceder a los datos actualizados
+          console.log(this.tasks[id_emergency]);
+        });
+      } catch (error) {
+        console.error(error)
+      }
+    },
+  },
+  // Tus otros ciclos de vida del componente
+}
+</script>
+
+<style scoped>
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
+</style>
+

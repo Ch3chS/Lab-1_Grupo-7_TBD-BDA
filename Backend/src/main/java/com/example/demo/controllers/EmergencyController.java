@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.models.DateRange;
 import com.example.demo.models.Emergency;
 import com.example.demo.services.EmergencyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,8 @@ public class EmergencyController {
         return service.getAll();
     }
 
+    
+
     /**
      * Obtiene una emergencia por su ID.
      * @param id El ID de la emergencia a obtener.
@@ -67,4 +70,15 @@ public class EmergencyController {
     public void deleteEmergency(@PathVariable Long id) {
         service.delete(id);
     }
+
+    // ------------------------------------ Métodos extra -------------------------------------------------
+
+    @PostMapping("/byDate")
+    public List<Emergency> getEmergenciesByDate(@RequestBody DateRange dateRange) throws Exception {
+        return service.getByDate(dateRange.getStartDate(), dateRange.getEndDate());
+    }
+
+
+
+
 }

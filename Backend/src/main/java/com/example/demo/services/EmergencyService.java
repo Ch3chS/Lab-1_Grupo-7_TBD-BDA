@@ -5,6 +5,11 @@ import org.springframework.stereotype.Service;
 import com.example.demo.models.Emergency;
 import com.example.demo.repositories.EmergencyRepo;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -107,5 +112,33 @@ public class EmergencyService {
         }
     }
 
+    // -------------------------------------------- Métodos extra ----------------------------------------------
     
+    /**
+     * Obtiene todas las emergencias dentro de un rango de fechas.
+     * @param startDate La fecha de inicio del rango.
+     * @param endDate La fecha de fin del rango.
+     * @return Una lista de todas las emergencias dentro del rango de fechas.
+     */
+     
+     public List<Emergency> getByDate(LocalDateTime startDate, LocalDateTime endDate) {
+         // Crear el formato de fecha
+         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+     
+         // Cambiar startDate y endDate a formato 'yyyy-MM-dd HH:mm:ss'
+         String formattedStartDate = startDate.format(format);
+         String formattedEndDate = endDate.format(format);
+     
+         LocalDateTime timestampStartDate = LocalDateTime.parse(formattedStartDate, format);
+         LocalDateTime timestampEndDate = LocalDateTime.parse(formattedEndDate, format);
+     
+         // Imprimir startDate y endDate
+         System.out.println("Fecha de inicio: " + timestampStartDate);
+         System.out.println("Fecha de fin: " + timestampEndDate);
+     
+         return repo.findByDateBetween(startDate, endDate);
+     }
+     
+
+
 }

@@ -1,6 +1,6 @@
 package com.example.demo.models;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -44,7 +44,7 @@ public class Emergency {
      * No puede ser nula
      */
     @Column(nullable = false)
-    private Timestamp date;
+    private LocalDateTime date;
 
     /**
      * Columna que dice si la emergencia sigue activa, 1 para activa 0 para inactiva.
@@ -91,7 +91,7 @@ public class Emergency {
      * Método que permite obtener la fecha y hora de una emergencia
      * @return fecha y hora de la emergencia (un valor de tipo Timestamp)
      */
-    public Timestamp getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
@@ -99,7 +99,7 @@ public class Emergency {
      * Método que permite actualizar la fecha y hora de una emergencia
      * @param date nueva fecha y hora para la emergencia (de tipo Timestamp)
      */
-    public void setDate(Timestamp date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
