@@ -120,5 +120,9 @@ public class TaskService {
         }
     }
 
-    
+    // ---------------------------------- Métodos para funcionalidades extra ----------------------------------
+
+    public List<Task> findByIdEmergency(Long id_emergency) {
+        return repo.findByIdEmergency(id_emergency);
+    }
 }

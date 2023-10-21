@@ -67,4 +67,9 @@ public class TaskController {
     public void deleteTask(@PathVariable Long id) {
         service.delete(id);
     }
+
+    @GetMapping("/byEmergency/{id_emergency}")
+    public List<Task> getTaskByEmergencyId(@PathVariable Long id_emergency) {
+        return service.findByIdEmergency(id_emergency);
+    }
 }
