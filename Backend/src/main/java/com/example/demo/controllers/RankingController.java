@@ -13,7 +13,7 @@ import java.util.List;
  * @version 1.0
  */
 @RestController
-@RequestMapping("/rankings")
+@RequestMapping("/api/rankings")
 public class RankingController {
 
     @Autowired

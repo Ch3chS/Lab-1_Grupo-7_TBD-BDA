@@ -13,7 +13,7 @@ import java.util.List;
  * @version 1.0
  */
 @RestController
-@RequestMapping("/taskRequirements")
+@RequestMapping("/api/taskRequirements")
 public class TaskRequirementController {
 
     @Autowired

@@ -13,7 +13,7 @@ import java.util.List;
  * @version 1.0
  */
 @RestController
-@RequestMapping("/voluntaryRequirements")
+@RequestMapping("/api/voluntaryRequirements")
 public class VoluntaryRequirementController {
 
     @Autowired

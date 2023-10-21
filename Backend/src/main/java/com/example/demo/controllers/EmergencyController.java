@@ -13,7 +13,7 @@ import java.util.List;
  * @version 1.0
  */
 @RestController
-@RequestMapping("/emergencies")
+@RequestMapping("/api/emergencies")
 public class EmergencyController {
 
     @Autowired

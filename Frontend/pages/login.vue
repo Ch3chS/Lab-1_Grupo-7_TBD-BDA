@@ -72,7 +72,7 @@ export default {
       .catch(error => {
         console.error('Request error:', error); // Agrega un registro de consola para el error de la solicitud
         this.messageType = 'error';
-        this.error_msg = 'Error en la solicitud';
+        this.error_msg = 'Datos incorrectos';
       });
     }
   },
