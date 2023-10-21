@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.models.Ranking;
+import com.example.demo.models.Voluntary;
 import com.example.demo.services.RankingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -66,5 +67,10 @@ public class RankingController {
     @DeleteMapping("/{id}")
     public void deleteRanking(@PathVariable Long id) {
         service.delete(id);
+    }
+
+    @GetMapping("/minRanking/voluntary/{id}")
+    public Voluntary getMinRankingVoluntary(@PathVariable Long id) {
+        return service.getMinRankingVoluntary(id);
     }
 }

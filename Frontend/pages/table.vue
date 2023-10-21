@@ -22,12 +22,15 @@
         <thead>
           <tr>
             <th>Tarea</th>
+            <th>Voluntario</th> <!-- Nueva columna para el voluntario -->
           </tr>
         </thead>
         <tbody>
-          <tr v-for="task in tasks[selectedEmergency]" :key="task.id">
+          <tr v-for="task in tasks[selectedEmergency]" :key="task.id_task">
             <td>{{ task.name }}</td>
+            <td v-if="volunteers[task.id_task]">{{ volunteers[task.id_task].name }} {{ volunteers[task.id_task].lastnames }}</td>
           </tr>
+
         </tbody>
       </table>
     </div>
@@ -44,7 +47,8 @@ export default {
       endDate: null,
       emergencies: [],
       selectedEmergency: null,
-      tasks: {}
+      tasks: {},
+      volunteers: {} // Nueva propiedad para almacenar los voluntarios
     }
   },
   methods: {
@@ -66,17 +70,31 @@ export default {
     async getTasks(id_emergency) {
       try {
         const response = await this.$axios.$get('/api/tasks/byEmergency/' + id_emergency);
-        console.log(response); // Imprime la respuesta en la consola
-        this.tasks[id_emergency] = response; // Asigna los datos recibidos a una propiedad reactiva
-        this.selectedEmergency = id_emergency; // Actualiza la emergencia seleccionada después de que las tareas se hayan cargado
-        this.$nextTick(() => {
-          // Aquí puedes acceder a los datos actualizados
-          console.log(this.tasks[id_emergency]);
-        });
+        console.log('Tareas cargadas: ', response);
+        this.tasks[id_emergency] = response;
+        this.selectedEmergency = id_emergency;
+
+        for (const task of response) {
+          console.log('Cargando voluntario para la tarea: ', task.id_task);
+          this.getVolunteer(task.id_task);
+        }
       } catch (error) {
         console.error(error)
       }
     },
+
+    async getVolunteer(id_task) {
+      try {
+        console.log('Obteniendo voluntario para la tarea: ', id_task);
+        const response = await this.$axios.$get('/api/rankings/minRanking/voluntary/' + id_task);
+        console.log('Voluntario cargado: ', response);
+        this.$set(this.volunteers, id_task, response);
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+
   },
   // Tus otros ciclos de vida del componente
 }

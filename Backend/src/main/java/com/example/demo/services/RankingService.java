@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.models.Ranking;
+import com.example.demo.models.Voluntary;
 import com.example.demo.repositories.RankingRepo;
+import com.example.demo.repositories.VoluntaryRepo;
 
 /**
  * Lógica detras del modelo Ranking, para los servicios de la aplicación con respecto al mismo.
@@ -19,6 +21,9 @@ public class RankingService {
   
     @Autowired
     private RankingRepo repo;
+
+    @Autowired
+    private VoluntaryRepo voluntaryRepo;
 
     /**
      * Creación de un ranking
@@ -102,5 +107,35 @@ public class RankingService {
         }
     }
 
+    // -------------------------------- Extra -------------------------------
+
+    public Voluntary getMinRankingVoluntary(Long id) {
+        List<Ranking> rankings = repo.findById_Task(id);
+    
+        if (!rankings.isEmpty()) {
+            // Obtiene el primer ranking de la lista, que debería ser el de menor puntaje
+            Ranking minRanking = rankings.get(0);
+            
+            // Se obtiene el rut del voluntario con menor puntaje
+            String rut = minRanking.getRut_voluntary();
+    
+            System.out.println("Rut del voluntario con menor puntaje: " + rut);
+    
+            // Se obtiene el voluntario con ese rut
+            Voluntary volunteer = voluntaryRepo.findByRut(rut);
+    
+            if (volunteer != null) {
+                System.out.println("Voluntario encontrado: " + volunteer);
+                return volunteer;
+            } else {
+                System.out.println("No se encontró un voluntario con el rut " + rut);
+            }
+        } else {
+            System.out.println("No se encontraron rankings para la tarea con ID " + id);
+        }
+        return null;
+    }
+    
+    
 
 }
