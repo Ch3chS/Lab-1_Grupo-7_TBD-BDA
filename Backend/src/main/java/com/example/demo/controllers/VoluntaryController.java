@@ -10,17 +10,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/voluntaries")
+@RequestMapping("/api/voluntaries")
 public class VoluntaryController {
 
     @Autowired
     private VoluntaryService service;
 
+    /* 
     @PostMapping
     public Voluntary createVoluntary(@RequestBody Voluntary voluntary) {
         return service.create(voluntary);
     }
-
+    */
     @GetMapping
     public List<Voluntary> getAllVoluntaries() {
         return service.getAll();

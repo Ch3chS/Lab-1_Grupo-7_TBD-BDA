@@ -1,16 +1,16 @@
 <template>
   <div class="grid">
     <div class="form-container">
-      <form class="form login" @submit.prevent="submitForm">
+      <form class="form login" @submit.prevent="login">
         <!-- Campo para el RUT -->
         <div class="form__field">
           <label for="login__rut">RUT</label>
-          <input id="login__rut" v-model="formData.rut" type="text" name="rut" placeholder="Ingrese RUT" required>
+          <input id="login__rut" v-model="rut" type="text" name="rut" placeholder="Ingrese RUT" required>
         </div>
         <!-- Campo para la contraseña -->
         <div class="form__field">
           <label for="login__password">Contraseña</label>
-          <input id="login__password" v-model="formData.password" type="password" name="password" placeholder="Ingrese una contraseña" required>
+          <input id="login__password" v-model="password" type="password" name="password" placeholder="Ingrese una contraseña" required>
         </div>
 
         <!-- Botón de envío del formulario -->
@@ -21,8 +21,8 @@
       </form>
 
       <!-- Mensaje para el usuario -->
-      <div v-if="message" :class="`message ${messageType}`">
-        {{ message }}
+      <div v-if="error_msg" :class="`message ${messageType}`">
+        {{ error_msg }}
       </div>
 
       <!-- Enlace para usuarios no registrados -->
@@ -32,58 +32,54 @@
   </div>
 </template>
 
-  
 <script>
-import axios from 'axios';
-
+import axios from 'axios'
 export default {
-  data() {
+  name: 'Home',
+    components: {
+
+    },
+  data: function() {
+    
     return {
-      formData: {
-        rut: '',
-        password: ''
-      },
-      message: '', // Mensaje para el usuario
-      messageType: '' // 'success' o 'error'
+      rut: "",
+      password: "",
+      messageType: false,
+      error_msg: "",
     }
   },
   methods: {
-    async submitForm() {
-      try {
-        const response = await axios.post('/voluntaries/login', this.formData);
-        // Aquí puedes manejar la respuesta del servidor
-        console.log(response.data);
-        this.message = 'Inicio de sesión exitoso!'; // Mensaje de éxito
-        this.messageType = 'success';
-      } catch (error) {
-        // Aquí puedes manejar los errores
-        console.error(error);
-        if (error.message) {
-          // Algo sucedió en la configuración de la solicitud que desencadenó un error
-          console.error('Error', error.message);
-          this.message = `Error: ${error.message}`;
-          this.messageType = 'error';
-        } else if (error.request) {
-          // La solicitud fue hecha pero no se recibió ninguna respuesta
-          console.error(error.request);
-          this.message = 'Error: No se recibió ninguna respuesta del servidor';
-          this.messageType = 'error';
-        } else if (error.response) {
-          // El servidor respondió con un estado de error
-          console.error(error.response.data);
-          console.error(error.response.status);
-          console.error(error.response.headers);
-          this.message = `Error: ${error.response.data.message || 'Error en el inicio de sesión. Por favor, inténtalo de nuevo.'}`; // Mensaje de error
-          this.messageType = 'error';
+    login() {
+      const json = {
+        "rut" : this.rut,
+        "password" : this.password
+      };
+      axios.post('/api/voluntaries/login', json)
+      .then(response => {
+        console.log('Response:', response); // Agrega un registro de consola para la respuesta completa
+        if(response && response.data && response.data.rut){
+          console.log("todo piola");
+          this.messageType = 'success';
+          this.error_msg = 'Inicio de sesión exitoso!';
+          this.$router.push('/home');
         }
-      }
+        else {
+          console.error('Response or response data is undefined');
+          this.messageType = 'error';
+          this.error_msg = response.data && response.data.result ? response.data.result.error_msg : 'Error desconocido';
+        }
+      })
+      .catch(error => {
+        console.error('Request error:', error); // Agrega un registro de consola para el error de la solicitud
+        this.messageType = 'error';
+        this.error_msg = 'Error en la solicitud';
+      });
     }
-  }
+  },
 }
 </script>
 
-  
-  <style scoped>
+<style scoped>
   .grid {
  display: flex;
  justify-content: center;
@@ -151,13 +147,12 @@ export default {
 }
 
 .success {
-  color: white;
-  background-color: #28a745;
+ color:white; 
+ background-color:#28a745; 
 }
 
-.error {
-  color: white;
-  background-color: #dc3545;
+.error { 
+ color:white; 
+ background-color:#dc3545; 
 }
-
 </style>

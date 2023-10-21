@@ -75,10 +75,10 @@ export default {
   methods: {
     async submitForm() {
       try {
-        const response = await axios.post('/voluntaries/register', this.formData);
+        const response = await axios.post('/api/voluntaries/register', this.formData);
         // Aquí puedes manejar la respuesta del servidor
         console.log(response.data);
-        this.message = 'Inicio de sesión exitoso!'; // Mensaje de éxito
+        this.message = 'Registro exitoso!'; // Mensaje de éxito
         this.messageType = 'success';
       } catch (error) {
         // Aquí puedes manejar los errores
