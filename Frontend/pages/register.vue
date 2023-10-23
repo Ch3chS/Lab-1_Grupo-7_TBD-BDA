@@ -1,11 +1,11 @@
 <template>
     <div class="grid">
-      <div class="form-container">
+      <div class="scroll-container">
         <form class="form register" @submit.prevent="submitForm">
           <!-- Campo para el RUT -->
           <div class="form__field">
             <label for="register__rut">RUT</label>
-            <input id="register__rut" v-model="formData.rut" type="text" name="rut" placeholder="Ingrese RUT" required>
+            <input id="register__rut" v-model="formData.rut" type="text" name="rut" placeholder="Ingrese RUT 12345678-9" required>
           </div>
           <!-- Campo para el nombre -->
           <div class="form__field">
@@ -37,27 +37,27 @@
             <label for="register__avaible">Disponibilidad</label>
             <input id="register__avaible" v-model="formData.avaible" type="checkbox" name="avaible">
           </div>
-  
+
           <!-- Botón de envío del formulario -->
           <div class="form__field">
             <input type="submit" value="Registrar">
           </div>
-  
+
         </form>
 
         <!-- Mensaje para el usuario -->
         <div v-if="message" :class="`message ${messageType}`">
             {{ message }}
         </div>
-  
+
         <!-- Enlace para usuarios ya registrados -->
         <p class="text--center">¿Ya estás registrado? <a href="/login">Ingresa ahora</a></p>
       </div>
-  
+
     </div>
   </template>
-  
-  
+
+
   <script>
 import axios from 'axios';
 
@@ -110,9 +110,8 @@ export default {
 }
 </script>
 
-  
-  
-  
+
+
   <style scoped>
    .grid {
   display: flex;
@@ -122,10 +121,9 @@ export default {
   background-color: #f0f0f0;
 }
 
-.form-container {
-  width: 100%;
-  max-width: 500px;
-  padding: 16px;
+.scroll-container {
+  margin-top: 100px;
+  overflow-y: auto;
 }
 
 .form {
@@ -191,4 +189,3 @@ export default {
 }
 
   </style>
-  

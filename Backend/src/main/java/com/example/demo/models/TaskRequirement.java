@@ -17,7 +17,6 @@ import lombok.Data;
 @Entity
 @Table(name = "taskRequirement")
 public class TaskRequirement {
-    
     // ----------------------------------------- Atributos --------------------------------------------------
 
     /**

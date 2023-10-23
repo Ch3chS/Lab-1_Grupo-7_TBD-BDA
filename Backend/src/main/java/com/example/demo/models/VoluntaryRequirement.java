@@ -24,7 +24,7 @@ public class VoluntaryRequirement {
      * Columna con la id de la tabla intermedia, la cual se genera automáticamente de forma creciente.
      * Es única para cada una
      * No puede ser nula
-     * (Realmente se hizo porque la entidad exije una etiqueta @Id)
+     * (Realmente se hizo porque la entidad exige una etiqueta @Id)
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

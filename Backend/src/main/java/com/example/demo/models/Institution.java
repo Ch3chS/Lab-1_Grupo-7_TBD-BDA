@@ -18,7 +18,6 @@ import lombok.Data;
 @Entity
 @Table(name = "institution")
 public class Institution {
-    
     // ----------------------------------------- Atributos --------------------------------------------------
 
     /**

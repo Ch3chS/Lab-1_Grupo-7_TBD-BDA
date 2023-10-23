@@ -129,3 +129,115 @@ CREATE TABLE IF NOT EXISTS "task_requirement" (
 );
 
 ----------------------------------------------------------------------------------------
+
+------------------------------------ trigger table Queries  ---------------------------
+
+CREATE TABLE IF NOT EXISTS "query_log" (
+    "id" BIGSERIAL PRIMARY KEY,
+    "username" VARCHAR(50) NOT NULL,
+    "query_text" VARCHAR(255) NOT NULL,
+    "table_name" VARCHAR(50) NOT NULL,
+    "date" TIMESTAMP NOT NULL,
+    PRIMARY KEY ("id")
+    );
+
+
+CREATE OR REPLACE FUNCTION log_query()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF TG_OP = 'INSERT' THEN
+        INSERT INTO query_log (username, query_text, table_name, date)
+        VALUES (current_user, 'INSERT', TG_TABLE_NAME, now());
+    ELSIF TG_OP = 'UPDATE' THEN
+        INSERT INTO query_log (username, query_text, table_name, date)
+        VALUES (current_user, 'UPDATE', TG_TABLE_NAME, now());
+    ELSIF TG_OP = 'DELETE' THEN
+        INSERT INTO query_log (username, query_text, table_name, date)
+        VALUES (current_user, 'DELETE', TG_TABLE_NAME, now());
+END IF;
+RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE TRIGGER task_status_query_log
+    AFTER INSERT OR UPDATE OR DELETE ON task_status
+    FOR EACH STATEMENT
+    EXECUTE FUNCTION log_query();
+
+
+CREATE TRIGGER voluntary_query_log
+    AFTER INSERT OR UPDATE OR DELETE ON voluntary
+    FOR EACH STATEMENT
+    EXECUTE FUNCTION log_query();
+
+
+CREATE TRIGGER institution_query_log
+    AFTER INSERT OR UPDATE OR DELETE ON institution
+    FOR EACH STATEMENT
+    EXECUTE FUNCTION log_query();
+
+
+CREATE TRIGGER emergency_query_log
+    AFTER INSERT OR UPDATE OR DELETE ON emergency
+    FOR EACH STATEMENT
+    EXECUTE FUNCTION log_query();
+
+
+CREATE TRIGGER task_query_log
+    AFTER INSERT OR UPDATE OR DELETE ON task
+    FOR EACH STATEMENT
+    EXECUTE FUNCTION log_query();
+
+
+CREATE TRIGGER requirement_query_log
+    AFTER INSERT OR UPDATE OR DELETE ON requirement
+    FOR EACH STATEMENT
+    EXECUTE FUNCTION log_query();
+
+
+CREATE TRIGGER voluntary_requirement_query_log
+    AFTER INSERT OR UPDATE OR DELETE ON voluntary_requirement
+    FOR EACH STATEMENT
+    EXECUTE FUNCTION log_query();
+
+
+CREATE TRIGGER emergency_requirement_query_log
+    AFTER INSERT OR UPDATE OR DELETE ON emergency_requirement
+    FOR EACH STATEMENT
+    EXECUTE FUNCTION log_query();
+
+
+CREATE TRIGGER task_requirement_query_log
+    AFTER INSERT OR UPDATE OR DELETE ON task_requirement
+    FOR EACH STATEMENT
+    EXECUTE FUNCTION log_query();
+
+----------------------------------------------------------------------------------------
+
+------------------------------------ stored procedure  ---------------------------
+
+CREATE OR REPLACE FUNCTION generate_query_report()
+    RETURNS TABLE (username VARCHAR(50), query_count INT, query_texts TEXT[]) AS $$
+BEGIN
+    RETURN QUERY
+        SELECT
+            username,
+            COUNT(*) AS query_count,
+            ARRAY_AGG(query_text) AS query_texts
+        FROM
+            query_log
+        WHERE
+                query_text LIKE '%INSERT%' OR
+                query_text LIKE '%UPDATE%' OR
+                query_text LIKE '%DELETE%'
+        GROUP BY
+            username
+        ORDER BY
+            query_count DESC;
+END;
+$$ LANGUAGE plpgsql;
+
+
+-- SELECT * FROM generate_query_report();
+

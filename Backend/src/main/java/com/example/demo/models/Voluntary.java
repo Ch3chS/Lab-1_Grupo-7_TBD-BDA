@@ -27,7 +27,6 @@ public class Voluntary {
     @Id
     @Column(unique = true, nullable = false, length = 10)
     private String rut;
-
     /**
      * Columna con el nombre del voluntario.
      * Se espera un largo de máximo 30.
