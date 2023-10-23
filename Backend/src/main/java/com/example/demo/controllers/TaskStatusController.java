@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.models.Task;
 import com.example.demo.models.TaskStatus;
 import com.example.demo.services.TaskStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,5 +67,16 @@ public class TaskStatusController {
     @DeleteMapping("/{id}")
     public void deleteTaskStatus(@PathVariable Long id) {
         service.delete(id);
+    }
+
+
+    /**
+     * Obtiene todas las tareas disponibles para un voluntario.
+     * @param voluntaryRut El rut del voluntario.
+     * Se obtiene desde el token de autenticación.
+     */
+    @GetMapping("/availableTasksForVoluntary/{voluntaryRut}")
+    public List<Task> getAvailableTasksForVoluntary(@PathVariable String voluntaryRut) {
+        return service.findAvailableTaskStatusForVoluntary(voluntaryRut);
     }
 }

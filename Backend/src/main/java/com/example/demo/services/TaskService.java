@@ -2,6 +2,8 @@ package com.example.demo.services;
 
 import java.util.List;
 
+import com.example.demo.models.TaskStatus;
+import com.example.demo.models.VoluntaryRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,7 @@ public class TaskService {
 
     @Autowired
     private TaskRequirementService taskRequirementService;
+
 
     /**
      * Creación de una tarea
@@ -125,4 +128,7 @@ public class TaskService {
     public List<Task> findByIdEmergency(Long id_emergency) {
         return repo.findByIdEmergency(id_emergency);
     }
+
+
+
 }

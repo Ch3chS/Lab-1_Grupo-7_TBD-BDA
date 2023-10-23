@@ -241,3 +241,17 @@ $$ LANGUAGE plpgsql;
 
 -- SELECT * FROM generate_query_report();
 
+----------------------------------------------------------------------------------------
+
+
+------------------------------------ trigger voluntary Queries  ---------------------------
+
+CREATE TABLE IF NOT EXISTS "query_voluntary_log" (
+    "id_query" BIGSERIAL NOT NULL ,
+    "task_id" BIGINT NOT NULL,
+    "volunteer_id" VARCHAR(10) NOT NULL,
+    "action_type" VARCHAR(50) NOT NULL,
+    "action_timestamp" TIMESTAMP NOT NULL,
+    PRIMARY KEY ("id_query")
+    );
+

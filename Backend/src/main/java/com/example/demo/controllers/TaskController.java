@@ -72,4 +72,5 @@ public class TaskController {
     public List<Task> getTaskByEmergencyId(@PathVariable Long id_emergency) {
         return service.findByIdEmergency(id_emergency);
     }
+
 }

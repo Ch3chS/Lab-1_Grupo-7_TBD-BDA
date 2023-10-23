@@ -40,7 +40,7 @@ export default {
 
     },
   data: function() {
-    
+
     return {
       rut: "",
       password: "",
@@ -61,6 +61,10 @@ export default {
           console.log("todo piola");
           this.messageType = 'success';
           this.error_msg = 'Inicio de sesión exitoso!';
+          //Se crea una cookie para mantener el rut del voluntario que inicia sesión
+          const voluntaryRut = json.rut;
+          document.cookie = `rut=${voluntaryRut}; expires=Thu, 01 Jan 2030 00:00:00 UTC; path=/`;
+          //-------------------------------------------------------------------------
           this.$router.push('/home');
         }
         else {
@@ -147,12 +151,12 @@ export default {
 }
 
 .success {
- color:white; 
- background-color:#28a745; 
+ color:white;
+ background-color:#28a745;
 }
 
-.error { 
- color:white; 
- background-color:#dc3545; 
+.error {
+ color:white;
+ background-color:#dc3545;
 }
 </style>

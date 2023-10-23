@@ -2,6 +2,7 @@ package com.example.demo.services;
 
 import java.util.List;
 
+import com.example.demo.models.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -82,4 +83,26 @@ public class TaskStatusService {
         }
     }
 
+
+    // ---------------------------------- Métodos para encontrar por nombre ----------------------------------
+    /**
+     * Obtener taskStatus por nombre
+     * @param name nombre de la entidad
+     * @return entidad con el nombre respectivo (o null en caso de no encontrarse)
+     */
+    public TaskStatus getByName(String name) {
+        return repo.findByName(name);
+    }
+
+    // ---------------------------------- Encontrar tareas para un voluntario ----------------------------------
+    /**
+     * Obtener taskStatus por nombre
+     *
+     * @param name nombre de la entidad
+     * @return entidad con el nombre respectivo (o null en caso de no encontrarse)
+     */
+    public List<Task> findAvailableTaskStatusForVoluntary(String voluntaryRut) {
+        TaskStatus pendingStatus = repo.findByName("Pendiente");
+        return repo.findAvailableTasksForVoluntary(voluntaryRut, pendingStatus.getId_taskStatus());
+    }
 }
