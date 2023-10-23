@@ -1,6 +1,11 @@
 <template>
   <div class="task-voluntary">
     <h1><b>Tareas disponibles para voluntarios</b></h1>
+    <div class="rut-input">
+      <label for="voluntaryRut">Escribe tu RUT:</label>
+      <input type="text" id="voluntaryRut" v-model="voluntaryRut" />
+      <button @click="loadTasks(voluntaryRut)">Cargar tareas</button>
+    </div>
     <table class="task-table">
       <thead>
       <tr>
@@ -27,55 +32,30 @@ export default {
   name: 'TaskVoluntary',
   data() {
     return {
-      tasks: [] // Inicialmente, la lista de tareas estará vacía
+      tasks: [] // Initialize the tasks as an empty array
     };
-  },
-  async asyncData({ params }) {
-    const voluntaryRut = params.voluntaryRut;
-    let tasks = [];
-
-    if (process.client) {
-      const voluntaryRut = this.getCookie('voluntaryRut');
-      if (voluntaryRut) {
-        tasks = await this.loadTasks(voluntaryRut);
-      }
-    }
-
-    return { tasks };
   },
   methods: {
     async loadTasks(voluntaryRut) {
       try {
-        const response = await fetch(`/api/availableTasksForVoluntary/${voluntaryRut}`);
+        console.log(voluntaryRut);
+        const response = await fetch(`/api/taskStatuses/availableTasksForVoluntary/${voluntaryRut}`);
         if (response.ok) {
-          return await response.json();
+          // Parse the response data and update the tasks data property
+          this.tasks = await response.json();
         } else {
           console.error('Error al cargar las tareas');
-          return [];
+          this.tasks = []; // Set tasks to an empty array on error
         }
       } catch (error) {
         console.error('Error al cargar las tareas:', error);
-        return [];
+        this.tasks = []; // Set tasks to an empty array on error
       }
-    },
-    getCookie(name) {
-      if (process.client) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) {
-          return parts.pop().split(';').shift();
-        }
-      }
-      return null;
-    },
-    acceptTask(taskId) {
-      // Aquí puedes agregar la lógica para aceptar la tarea con el taskId proporcionado
-      // Por ejemplo, puedes realizar una solicitud a la API para aceptar la tarea.
-      // Después de aceptar la tarea, puedes actualizar la lista de tareas si es necesario.
     }
   }
 };
 </script>
+
 
 <style scoped>
 .task-voluntary {

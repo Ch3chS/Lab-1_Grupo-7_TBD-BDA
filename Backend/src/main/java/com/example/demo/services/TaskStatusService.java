@@ -98,11 +98,14 @@ public class TaskStatusService {
     /**
      * Obtener taskStatus por nombre
      *
-     * @param name nombre de la entidad
+     * @param voluntaryRut nombre de la entidad
      * @return entidad con el nombre respectivo (o null en caso de no encontrarse)
      */
     public List<Task> findAvailableTaskStatusForVoluntary(String voluntaryRut) {
         TaskStatus pendingStatus = repo.findByName("Pendiente");
-        return repo.findAvailableTasksForVoluntary(voluntaryRut, pendingStatus.getId_taskStatus());
+        List<Task> tasks = repo.findAvailableTasksForVoluntary(voluntaryRut, pendingStatus.getId_taskStatus());
+        System.out.println("Number of tasks found: " + tasks.size());
+        return tasks;
+
     }
 }

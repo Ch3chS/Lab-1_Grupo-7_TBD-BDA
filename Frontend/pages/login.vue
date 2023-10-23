@@ -61,10 +61,6 @@ export default {
           console.log("todo piola");
           this.messageType = 'success';
           this.error_msg = 'Inicio de sesión exitoso!';
-          //Se crea una cookie para mantener el rut del voluntario que inicia sesión
-          const voluntaryRut = json.rut;
-          document.cookie = `rut=${voluntaryRut}; expires=Thu, 01 Jan 2030 00:00:00 UTC; path=/`;
-          //-------------------------------------------------------------------------
           this.$router.push('/home');
         }
         else {

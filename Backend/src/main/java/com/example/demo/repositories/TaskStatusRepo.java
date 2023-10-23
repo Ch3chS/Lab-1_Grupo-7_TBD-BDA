@@ -18,7 +18,7 @@ public interface TaskStatusRepo extends JpaRepository<TaskStatus, Long> {
 
 
 	@Query("SELECT t FROM Task t " +
-			"WHERE t.id_taskStatus = :taskStatusId " +
+			"WHERE t.id_task = :taskStatusId " +
 			"AND t.id_task IN (" +
 			"   SELECT tr.id_task FROM TaskRequirement tr " +
 			"   WHERE tr.id_requirement IN (" +
